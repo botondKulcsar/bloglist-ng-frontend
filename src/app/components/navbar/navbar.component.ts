@@ -20,11 +20,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (currentUserString) {
       this.authService.userLoggedIn.next(JSON.parse(currentUserString))
     }
-    
+
     this.authService.userLoggedIn.subscribe(
       user => {
         if (user) {
           this.user = user;
+        } else {
+          this.user = null;
         }
       },
       err => console.log(err),
@@ -39,8 +41,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.authService.userLoggedIn.next(null);
-    localStorage.removeItem('bloglist-user');
+    this.authService.logout()
   }
 
 }

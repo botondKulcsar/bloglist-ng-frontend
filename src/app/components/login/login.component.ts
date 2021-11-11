@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   userSub?: Subscription
 
-  visible: boolean = true;
+  visible: boolean = false;
 
   loginForm!: FormGroup;
   signupForm!: FormGroup;

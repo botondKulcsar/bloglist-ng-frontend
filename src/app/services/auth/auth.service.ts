@@ -41,4 +41,10 @@ export class AuthService {
         )
       );
   }
+
+  logout(): void {
+    this.userLoggedIn.next(null);
+    localStorage.removeItem('bloglist-user');
+    localStorage.removeItem('bloglist-user-token');
+  }
 }

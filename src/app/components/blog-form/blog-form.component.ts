@@ -42,7 +42,9 @@ export class BlogFormComponent implements OnInit, OnDestroy {
           }
         },
         err => alert(err.message),
-        () => {}
+        () => {
+          // this.blogService.getAll().subscribe()
+        }
       )
   }
 
