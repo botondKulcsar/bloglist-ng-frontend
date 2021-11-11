@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Blog } from './models/blog';
+import { User } from './models/user';
+import { BlogHttpService } from './services/http/blog-http.service';
+import { UserHttpService } from './services/http/user-http.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +11,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'bloglist-ng';
+
+  constructor(
+    private blogService: BlogHttpService,
+    private userService: UserHttpService
+    ) {}
+
+  blogs$: Observable<Blog[]> = this.blogService.getAll()
+  users$: Observable<User[]> = this.userService.getAll()
 }

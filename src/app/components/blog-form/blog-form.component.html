@@ -1,0 +1,31 @@
+<div>
+    <button *ngIf="!visible" (click)="visible = !visible">Create new blog</button>
+    <form *ngIf="visible" #blogForm="ngForm" (ngSubmit)="onSubmit(blogForm)" >
+        <input
+         name="title"
+         type="text"
+         [(ngModel)]="title"
+         required
+         placeholder="title"
+         >
+        <input
+         name="author"
+         type="text"
+         [(ngModel)]="author"
+         required
+         placeholder="author"
+         >
+        <input
+         name="url"
+         type="url"
+         [(ngModel)]="url"
+         required
+         placeholder="https://example.com"
+         pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)"
+         >
+         <button [disabled]="blogForm.invalid" type="submit">Create</button>
+         <div>
+             <button (click)="visible = !visible" type="button">Cancel</button>
+         </div>
+    </form>
+</div>
