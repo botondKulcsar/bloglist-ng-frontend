@@ -1,0 +1,8 @@
+input {
+    display: block;
+}
+
+p > a {
+    text-decoration: underline;
+    cursor: pointer;
+}

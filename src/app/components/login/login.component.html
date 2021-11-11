@@ -1,0 +1,42 @@
+<form *ngIf="!visible" [formGroup]="loginForm" (ngSubmit)="loginUser()">
+    <h2>Log in</h2>
+
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" formControlName="username" required>
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" formControlName="password" required>
+    </div>
+    <button [disabled]="loginForm.invalid" type="submit">Login</button>
+    <p>Not yet registered? <a (click)="visible = !visible">Sign up!</a></p>
+</form>
+
+<form *ngIf="visible" [formGroup]="signupForm" (ngSubmit)="registerUser()">
+    <h2>Sign up</h2>
+
+    <div>
+        <label for="name">First- and Lastname:</label>
+        <input type="text" id="name" name="name" formControlName="name" required>
+    </div>
+
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" formControlName="username" required>
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" formControlName="password" required>
+    </div>
+    <div>
+        <label for="rePassword">Repeat password:</label>
+        <input type="password" id="rePassword" name="rePassword" formControlName="rePassword" required>
+        <span
+            *ngIf="!signupForm.hasError('mismatch') && (rePassword.dirty || rePassword.touched)"
+        >Passwords do not match!</span>
+    </div>
+    
+    <button [disabled]="signupForm.invalid" type="submit">Register</button>
+    <p>Already a registered? <a (click)="visible = !visible">Login</a></p>
+</form>

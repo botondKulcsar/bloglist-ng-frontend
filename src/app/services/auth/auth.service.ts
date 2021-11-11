@@ -8,7 +8,10 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
+
   userLoggedIn = new BehaviorSubject<any>(null);
+
+
 
   BASE_URL = environment.apiUrl;
 
@@ -20,7 +23,10 @@ export class AuthService {
       .pipe(
         tap(
           (data) => {
-            if (data.token) {
+            if (data) {
+              console.log('data: ', data);
+              console.log('data.token: ', data.token);
+              localStorage.setItem('bloglist-user', JSON.stringify({ username: data.username, name: data.name }));
               localStorage.setItem('bloglist-user-token', data.token);
               this.userLoggedIn.next({
                 username: data.username,
@@ -29,7 +35,7 @@ export class AuthService {
             }
           },
           (error) => {
-            localStorage.removeItem('bloglist-user-token');
+            localStorage.removeItem('bloglist-user');
             this.userLoggedIn.next(null);
           }
         )

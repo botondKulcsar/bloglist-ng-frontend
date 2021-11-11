@@ -2,5 +2,8 @@
     <ul>
         <li><a routerLink="/blogs">blogs</a></li>
         <li><a routerLink="/users">users</a></li>
+        <li *ngIf="user"> Welcome {{ user.username }}!</li>
+        <li *ngIf="!user"><a routerLink="/login">login</a></li>
+        <li *ngIf="user"><a (click)="logout()">logout</a></li>
     </ul>
 </nav>
