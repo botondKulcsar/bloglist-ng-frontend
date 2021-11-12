@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Blog } from 'src/app/models/blog';
 import { BlogHttpService } from 'src/app/services/http/blog-http.service';
 
 @Component({
@@ -13,6 +14,8 @@ export class BlogFormComponent implements OnInit, OnDestroy {
   constructor(
     private blogService: BlogHttpService
   ) { }
+
+  @Output() updateBlogList = new EventEmitter<Blog>()
 
   blogSub?: Subscription
 
@@ -32,19 +35,17 @@ export class BlogFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(form: NgForm): void {
-    console.log(form.value)
-    // todo get authenticated user and post new blog to server
+
     this.blogSub = this.blogService.create({ ...form.value, likes: 0 })
       .subscribe(
-        savedBlog => {
+        (savedBlog: Blog) => {
           if (savedBlog) {
+            this.updateBlogList.emit(savedBlog)
             form.reset();
           }
         },
         err => alert(err.message),
-        () => {
-          // this.blogService.getAll().subscribe()
-        }
+        () => {}
       )
   }
 
