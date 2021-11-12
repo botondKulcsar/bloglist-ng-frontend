@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-mat-navbar',
@@ -16,6 +17,43 @@ export class MatNavbarComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private authService: AuthService
+    ) {}
+
+
+  userSub!: Subscription;
+
+  user?: any
+
+  ngOnInit(): void {
+    // const currentUserString = localStorage.getItem('bloglist-user');
+    // if (currentUserString) {
+    //   this.authService.userLoggedIn.next(JSON.parse(currentUserString))
+    // }
+
+    this.userSub = this.authService.userLoggedIn.subscribe(
+      user => {
+        if (user) {
+          this.user = user;
+        } else {
+          this.user = null;
+        }
+      },
+      err => console.log(err),
+      () => {}
+    )
+  }
+
+  ngOnDestroy(): void {
+    if (this.userSub) {
+      this.userSub.unsubscribe();
+    }
+  }
+
+  logout(): void {
+    this.authService.logout()
+  }
 
 }
