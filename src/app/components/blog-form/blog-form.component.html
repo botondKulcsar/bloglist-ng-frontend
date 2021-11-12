@@ -1,5 +1,5 @@
 <div>
-    <button *ngIf="!visible" (click)="visible = !visible">Create new blog</button>
+    <button *ngIf="!visible" (click)="showForm()">Create new blog</button>
     <form *ngIf="visible" #blogForm="ngForm" (ngSubmit)="onSubmit(blogForm)" >
         <input
          name="title"

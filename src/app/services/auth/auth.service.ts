@@ -10,6 +10,8 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   userLoggedIn = new BehaviorSubject<any>(null);
 
+
+
   BASE_URL = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
@@ -42,4 +44,10 @@ export class AuthService {
     localStorage.removeItem('bloglist-user');
     localStorage.removeItem('bloglist-user-token');
   }
+  
+  getUserValue(): any {
+    return this.userLoggedIn.value;
+  }
+
+
 }

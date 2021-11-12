@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Blog } from 'src/app/models/blog';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { BlogHttpService } from 'src/app/services/http/blog-http.service';
 
 @Component({
@@ -10,10 +11,12 @@ import { BlogHttpService } from 'src/app/services/http/blog-http.service';
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.css'],
 })
-export class BlogComponent implements OnInit {
+export class BlogComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
-    private blogService: BlogHttpService
+    private blogService: BlogHttpService,
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   id: string = this.route.snapshot.params.id;
@@ -22,10 +25,22 @@ export class BlogComponent implements OnInit {
 
   blog?: Blog;
 
+  user?: any;
+  authSub!: Subscription;
+
   newComment: string = '';
 
   ngOnInit(): void {
     this.getBlogDetails();
+    this.authSub = this.authService.userLoggedIn.subscribe(
+      user => this.user = user
+    )
+  }
+
+  ngOnDestroy(): void {
+    if (this.authSub) {
+      this.authSub.unsubscribe();
+    }
   }
 
   getBlogDetails(): void {
@@ -45,6 +60,10 @@ export class BlogComponent implements OnInit {
   }
 
   submitComment(): void {
+    if (!this.user) {
+      this.router.navigate(['/login']);
+      return;
+    }
     if (!this.newComment) {
       return;
     }
@@ -64,6 +83,10 @@ export class BlogComponent implements OnInit {
   }
 
   likeBlog(likes: number): void {
+    if (!this.user) {
+      this.router.navigate(['/login']);
+      return;
+    }
     this.blogService
       .updateById(this.id, { likes: ++likes })
       .pipe(take(1))
