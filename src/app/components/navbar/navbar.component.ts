@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.authService.userLoggedIn.next(JSON.parse(currentUserString))
     }
 
-    this.authService.userLoggedIn.subscribe(
+    this.userSub = this.authService.userLoggedIn.subscribe(
       user => {
         if (user) {
           this.user = user;
