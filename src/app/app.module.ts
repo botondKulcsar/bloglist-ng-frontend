@@ -15,6 +15,8 @@ import { BlogFormComponent } from './components/blog-form/blog-form.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material.module';
+import { MatNavbarComponent } from './components/mat-navbar/mat-navbar.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UserDetailsComponent,
     FooterComponent,
     BlogFormComponent,
-    LoginComponent
+    LoginComponent,
+    MatNavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialModule,
+    
   ],
   providers: [
     {

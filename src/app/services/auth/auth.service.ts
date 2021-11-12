@@ -8,7 +8,10 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
-  userLoggedIn = new BehaviorSubject<any>(null);
+
+  currentUser = localStorage.getItem('bloglist-user')
+
+  userLoggedIn = new BehaviorSubject<any>(this.currentUser);
 
 
 
