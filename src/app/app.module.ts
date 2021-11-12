@@ -14,6 +14,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { BlogFormComponent } from './components/blog-form/blog-form.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AuthInterceptorService } from './services/auth/auth-interceptor.service
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {
