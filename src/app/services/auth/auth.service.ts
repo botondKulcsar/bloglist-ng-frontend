@@ -11,7 +11,7 @@ export class AuthService {
 
   currentUser = localStorage.getItem('bloglist-user')
 
-  userLoggedIn = new BehaviorSubject<any>(this.currentUser);
+  userLoggedIn = new BehaviorSubject<any>(JSON.parse(this.currentUser ?? ''));
 
 
 

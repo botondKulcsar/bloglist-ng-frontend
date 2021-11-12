@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
@@ -42,6 +42,7 @@ import { MatNavbarComponent } from './components/mat-navbar/mat-navbar.component
     
   ],
   providers: [
+    Title,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

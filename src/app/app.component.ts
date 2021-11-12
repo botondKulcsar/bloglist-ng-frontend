@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Blog } from './models/blog';
-import { User } from './models/user';
-import { BlogHttpService } from './services/http/blog-http.service';
-import { UserHttpService } from './services/http/user-http.service';
+import { Title } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-root',
@@ -12,11 +9,13 @@ import { UserHttpService } from './services/http/user-http.service';
 })
 export class AppComponent {
 
-  constructor(
-    private blogService: BlogHttpService,
-    private userService: UserHttpService
-    ) {}
 
-  blogs$: Observable<Blog[]> = this.blogService.getAll()
-  users$: Observable<User[]> = this.userService.getAll()
+  constructor(private titleService: Title) {
+    this.setTitle();
+  }
+
+  public setTitle() {
+    this.titleService.setTitle('Bloglist in Angular...')
+  }
+
 }
