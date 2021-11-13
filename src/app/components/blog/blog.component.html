@@ -19,13 +19,14 @@
 <mat-card-content>
     
     <a [href]="blog.url" target="_blank">{{blog.url}}</a>
-    <p>{{ blog.likes }} likes <button (click)="likeBlog(blog.likes ?? 0)">Like</button></p>
+    <br>
+    <h4>{{ blog.likes }} likes <button mat-raised-button (click)="likeBlog(blog.likes ?? 0)">Like</button></h4>
 
     <h3>Comments</h3>
-    <textarea required type="text" name="comment" [(ngModel)]="newComment"
-        placeholder="input your comment here..."></textarea>
+    <textarea matInput required type="text" name="comment" [(ngModel)]="newComment"
+        placeholder="input your comment here..."></textarea><br>
     <button 
-        [ngStyle]="{'display': 'block'}" 
+        mat-raised-button color="primary"
         [disabled]="!newComment" 
         (click)="submitComment()">Add comment</button>
     <mat-list *ngFor="let comment of blog?.comments">

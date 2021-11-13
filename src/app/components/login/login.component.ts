@@ -40,7 +40,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   generateSignupForm(): void {
     this.signupForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(5)]],
+      firstname: ['', [Validators.required, Validators.minLength(2)]],
+      lastname: ['', [Validators.required, Validators.minLength(2)]],
       username: ['', [Validators.required, Validators.minLength(5)]],
       password: ['', [Validators.required, Validators.minLength(5)]],
       rePassword: ['', [Validators.required, Validators.minLength(5)]],
@@ -71,8 +72,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   registerUser(): void {
-    const { username, password, name } = this.signupForm.value;
-     this.userSub = this.userService.create({ username, password, name, blogs: [] })
+    const { username, password, firstname, lastname } = this.signupForm.value;
+     this.userSub = this.userService.create({ username, password, name: `${firstname} ${lastname}`, blogs: [] })
       .subscribe(
         (user: User) => {
           if (user) {
