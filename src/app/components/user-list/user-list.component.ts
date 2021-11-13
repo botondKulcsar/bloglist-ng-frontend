@@ -12,6 +12,8 @@ export class UserListComponent implements OnInit {
 
   constructor(private userService: UserHttpService) { }
 
+  displayedColumns: string[] = ['name', 'blogs']
+
   users$: Observable<User[]> = this.userService.getAll()
 
   ngOnInit(): void {

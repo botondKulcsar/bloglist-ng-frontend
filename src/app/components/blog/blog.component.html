@@ -1,4 +1,5 @@
-<h2>Blog app</h2>
+<mat-card *ngIf="blog">
+    <mat-card-title>{{ blog.title }}</mat-card-title>
 <!-- <div *ngIf="selectedBlog$ | async as blog">
     <h1>{{ blog.title }}</h1>
     <a [href]="blog.url" target="_blank">{{blog.url}}</a>
@@ -15,8 +16,8 @@
         <li>{{ comment }}</li>
     </ul>
 </div> -->
-<div *ngIf="blog">
-    <h1>{{ blog.title }}</h1>
+<mat-card-content>
+    
     <a [href]="blog.url" target="_blank">{{blog.url}}</a>
     <p>{{ blog.likes }} likes <button (click)="likeBlog(blog.likes ?? 0)">Like</button></p>
 
@@ -27,7 +28,8 @@
         [ngStyle]="{'display': 'block'}" 
         [disabled]="!newComment" 
         (click)="submitComment()">Add comment</button>
-    <ul *ngFor="let comment of blog?.comments">
-        <li>{{ comment }}</li>
-    </ul>
-</div>
+    <mat-list *ngFor="let comment of blog?.comments">
+        <mat-list-item>{{ comment }}</mat-list-item>
+    </mat-list>
+</mat-card-content>
+</mat-card>

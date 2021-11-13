@@ -1,7 +1,18 @@
-<h2>Blogs</h2>
-<div>
-    <app-blog-form (updateBlogList)="addNewBlog($event)" ></app-blog-form>
-    <table>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Blogs</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <app-blog-form (updateBlogList)="addNewBlog($event)"></app-blog-form>
+
+        <!-- <mat-nav-list>
+        <mat-list-item *ngFor="let blog of blogs">
+            <a [routerLink]="['/blogs', blog.id]">{{ blog.title }}</a>
+        </mat-list-item>
+    </mat-nav-list> -->
+
+        <!-- <table>
         <thead>
             <tr>
                 <th>Title</th>
@@ -9,14 +20,34 @@
             </tr>
         </thead>
         <tbody>
-            <!-- <tr *ngFor="let blog of blogs$ | async">
+            <tr *ngFor="let blog of blogs$ | async">
                 <td><a [routerLink]="['/blogs', blog.id]">{{ blog.title }}</a></td>
                 <td>{{ blog.author }}</td>
-            </tr> -->
+            </tr>
             <tr *ngFor="let blog of blogs">
                 <td><a [routerLink]="['/blogs', blog.id]">{{ blog.title }}</a></td>
                 <td>{{ blog.author }}</td>
             </tr>
         </tbody>
-    </table>
-  </div>
+    </table> -->
+
+
+        <table mat-table [dataSource]="blogs" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef> Title </th>
+                <td mat-cell *matCellDef="let blog"> {{blog.title}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="author">
+                <th mat-header-cell *matHeaderCellDef> Author </th>
+                <td mat-cell *matCellDef="let blog"> {{blog.author}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/blogs', row.id]"
+                [ngStyle]="{'cursor': 'pointer'}"></tr>
+
+        </table>
+    </mat-card-content>
+</mat-card>

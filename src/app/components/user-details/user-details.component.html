@@ -1,18 +1,17 @@
-<div>
-    <h2>Blog App</h2>
-    <div *ngIf="error">
-        <p>Unfortunately an unforeseen error has occured</p>
-        <button (click)="clearError()" routerLink="/users">OK</button>
-    </div>
-    <div *ngIf="!error">
-        <h3>{{ selectedUser?.name }}</h3>
-        <!-- {{ selectedUser | json }} -->
-        <h4 *ngIf="selectedUser?.blogs?.length === 0" >This user has no blogs posted yet...</h4>
-        <h4 *ngIf="selectedUser?.blogs?.length !== 0" >Added blogs:</h4>
-        <ul *ngFor="let blog of selectedUser?.blogs">
-            <li><a [routerLink]="['/blogs', blog.id]"
-             >{{ blog.title }}</a></li>
-        </ul>
-    </div>
+<div *ngIf="error">
+    <div>Blog App</div>
+    <p>Unfortunately an unforeseen error has occured</p>
+    <button (click)="clearError()" routerLink="/users">OK</button>
 </div>
+<mat-card *ngIf="!error">
+    <mat-card-title>{{ selectedUser?.name }}</mat-card-title>
+    <!-- {{ selectedUser | json }} -->
+    <mat-card-content>
+        <h4 *ngIf="selectedUser?.blogs?.length === 0">This user has no blogs posted yet...</h4>
+        <h4 *ngIf="selectedUser?.blogs?.length !== 0">Added blogs:</h4>
+        <mat-nav-list >
+            <a *ngFor="let blog of selectedUser?.blogs" mat-list-item [routerLink]="['/blogs', blog.id]">{{ blog.title }}</a>
+        </mat-nav-list>
+    </mat-card-content>
 
+</mat-card>

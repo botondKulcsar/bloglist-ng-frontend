@@ -1,7 +1,28 @@
-<h2>Users</h2>
-<div>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Users</mat-card-title>
+    </mat-card-header>
 
-    <table>
+    <mat-card-content>
+        <table mat-table [dataSource]="users$" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="blogs">
+                <th mat-header-cell *matHeaderCellDef> Blogs created </th>
+                <td mat-cell *matCellDef="let user"> {{user.blogs?.length}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/users', row.id]"
+                [ngStyle]="{'cursor': 'pointer'}"></tr>
+
+        </table>
+
+        <!-- <table>
         <thead>
             <tr>
                 <th>Name</th>
@@ -16,6 +37,6 @@
                 <td>{{ user.blogs?.length }}</td>
             </tr>
         </tbody>
-    </table>
-
-</div>
+    </table> -->
+    </mat-card-content>
+</mat-card>
