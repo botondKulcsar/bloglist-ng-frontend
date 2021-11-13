@@ -4,7 +4,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { BlogListComponent } from './components/blog-list/blog-list.component';
 import { BlogComponent } from './components/blog/blog.component';
@@ -21,7 +20,6 @@ import { MatNavbarComponent } from './components/mat-navbar/mat-navbar.component
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
     UserListComponent,
     BlogListComponent,
     BlogComponent,
