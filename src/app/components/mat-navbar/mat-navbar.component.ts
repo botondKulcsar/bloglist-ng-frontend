@@ -3,6 +3,9 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from '../login/login.component';
+
 
 @Component({
   selector: 'app-mat-navbar',
@@ -19,9 +22,17 @@ export class MatNavbarComponent {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private authService: AuthService
+    private authService: AuthService,
+    public dialog: MatDialog
     ) {}
 
+  openDialog() {
+    const dialogRef = this.dialog.open(LoginComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    })
+  }
 
   userSub!: Subscription;
 

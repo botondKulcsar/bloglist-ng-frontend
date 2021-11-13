@@ -16,3 +16,18 @@
   z-index: 1;
 }
 
+mat-sidenav-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+
+app-footer {
+  position: fixed;
+  bottom: 0;
+}
+
+
+

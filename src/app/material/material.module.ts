@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 
 
 
@@ -23,7 +24,8 @@ const material: any[] = [
   MatTableModule,
   MatCardModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatDialogModule,
 ];
 
 @NgModule({

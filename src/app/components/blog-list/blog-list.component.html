@@ -7,31 +7,6 @@
         <app-blog-form (updateBlogList)="addNewBlog($event)"></app-blog-form>
         <br>
 
-        <!-- <mat-nav-list>
-        <mat-list-item *ngFor="let blog of blogs">
-            <a [routerLink]="['/blogs', blog.id]">{{ blog.title }}</a>
-        </mat-list-item>
-    </mat-nav-list> -->
-
-        <!-- <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Author</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let blog of blogs$ | async">
-                <td><a [routerLink]="['/blogs', blog.id]">{{ blog.title }}</a></td>
-                <td>{{ blog.author }}</td>
-            </tr>
-            <tr *ngFor="let blog of blogs">
-                <td><a [routerLink]="['/blogs', blog.id]">{{ blog.title }}</a></td>
-                <td>{{ blog.author }}</td>
-            </tr>
-        </tbody>
-    </table> -->
-
 
         <table mat-table [dataSource]="blogs" class="mat-elevation-z8">
 

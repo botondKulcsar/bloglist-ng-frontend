@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private userService: UserHttpService,
     private authService: AuthService,
     private router: Router,
+    public dialogRef: MatDialogRef<LoginComponent>
     ) { }
 
   userSub?: Subscription
@@ -82,7 +84,10 @@ export class LoginComponent implements OnInit, OnDestroy {
           }
         },
         (error) => alert(error.message),
-        () => {this.signupForm.reset()}
+        () => {
+          this.signupForm.reset();
+          this.dialogRef.close();
+        }
       )
   }
 
@@ -96,7 +101,10 @@ export class LoginComponent implements OnInit, OnDestroy {
           }
         },
         error => alert(error.message),
-        () => this.router.navigate(['/blogs'])
+        () => {
+          this.dialogRef.close();
+          // this.router.navigate(['/blogs']);
+        }
       )
   }
 

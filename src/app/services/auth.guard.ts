@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { LoginComponent } from '../components/login/login.component';
 import { AuthService } from './auth/auth.service';
 
 @Injectable({
@@ -10,8 +12,16 @@ export class AuthGuard implements CanActivate {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    public dialog: MatDialog
     ) {}
+
+    openDialog() {
+      const dialogRef = this.dialog.open(LoginComponent);
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      })
+    }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -23,7 +33,8 @@ export class AuthGuard implements CanActivate {
         return true
       }
     
-      return this.router.parseUrl('/login');
+      this.openDialog();
+      return false;
   }
   
 }
