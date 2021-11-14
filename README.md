@@ -1,8 +1,8 @@
 # BloglistNg
 
-Deployer version: [bloglist-ng] (https://kecs-bloglist-ng.web.app/)
+Deployed version: [bloglist-ng](https://kecs-bloglist-ng.web.app/)
 
-Backend source code: [bloglist] (https://github.com/botondKulcsar/bloglist)
+Backend source code: [bloglist](https://github.com/botondKulcsar/bloglist)
 
 This is my second MEAN stack app, first time using Angular Material.
 
