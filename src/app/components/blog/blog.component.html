@@ -1,5 +1,6 @@
 <mat-card *ngIf="blog">
-    <mat-card-title>{{ blog.title }}</mat-card-title>
+    <mat-card-title><span>{{ blog.title }}</span> <button (click)="removeBlog()"  *ngIf="ownBlog"  mat-raised-button color="warn">Delete</button></mat-card-title>
+   
     <!-- <div *ngIf="selectedBlog$ | async as blog">
     <h1>{{ blog.title }}</h1>
     <a [href]="blog.url" target="_blank">{{blog.url}}</a>
@@ -17,10 +18,10 @@
     </ul>
 </div> -->
     <mat-card-content>
-
+        
         <a [href]="blog.url" target="_blank">{{blog.url}}</a>
         <br>
-        <h4>{{ blog.likes }} likes <button mat-raised-button (click)="likeBlog(blog.likes ?? 0)">Like</button></h4>
+        <h4>{{ blog.likes }} likes <button *ngIf="!ownBlog" mat-raised-button (click)="likeBlog(blog.likes ?? 0)">Like</button></h4>
 
         <h3>Comments</h3>
         <mat-form-field>

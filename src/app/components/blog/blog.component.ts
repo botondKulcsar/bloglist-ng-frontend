@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Blog } from 'src/app/models/blog';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { BlogHttpService } from 'src/app/services/http/blog-http.service';
 import { LoginComponent } from '../login/login.component';
+
 
 @Component({
   selector: 'app-blog',
@@ -18,6 +19,7 @@ export class BlogComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private blogService: BlogHttpService,
     private authService: AuthService,
+    private router: Router,
     public dialog: MatDialog
   ) {}
 
@@ -25,7 +27,9 @@ export class BlogComponent implements OnInit, OnDestroy {
 
   // selectedBlog$: Observable<Blog> | undefined;
 
-  blog?: Blog;
+  blog!: Blog;
+
+  ownBlog: boolean = false;
 
   user?: any;
   authSub!: Subscription;
@@ -35,7 +39,8 @@ export class BlogComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getBlogDetails();
     this.authSub = this.authService.userLoggedIn.subscribe(
-      user => this.user = user
+      user => this.user = user,
+      err => console.error(err)
     )
   }
 
@@ -54,10 +59,13 @@ export class BlogComponent implements OnInit, OnDestroy {
         (blog: Blog) => {
           if (blog) {
             this.blog = blog;
+            if (this.blog.user){
+              this.ownBlog = this.blog.user.name === this.user.name;
+            } 
           }
         },
         (error) => alert(error),
-        () => console.log('getblogdetails complete')
+        () => {}
       );
   }
 
@@ -108,5 +116,19 @@ export class BlogComponent implements OnInit, OnDestroy {
         },
         (error) => alert(error.message)
       );
+  }
+
+  removeBlog(): void {
+    if(confirm('Are you sure you want to PERMANENTLY delete this blog?')) {
+      this.blogService.deleteById(this.blog.id)
+        .pipe(take(1))
+        .subscribe(
+          () => console.log(`blog with id=${this.blog.id} has been deleted`),
+          err => console.error(err),
+          () => {this.router.navigate(['/blogs'])}
+        )
+    } else {
+      return;
+    }
   }
 }
